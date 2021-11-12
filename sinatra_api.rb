@@ -6,38 +6,42 @@ require './models/wines'
 set :database, "sqlite3:development.sqlite3"
 
 get '/' do
-  @users = User.all
-  erb :index
+  users_list = UsersControllers.new
+  users_list.show_users
+  body = JSON.parse(request.body.read)
+  puts body.to_json, 200
 end
 
 get '/wines' do
-  "There will be list of your wines"
-  @wines = Wines.all
-  erb :index
+  wines_list = WinesControllers.new
+  wines_list.show_wines
+  body = JSON.parse(request.body.read)
+  puts body.to_json, 200
 end
 
 post '/wine/new' do
-  @new_wine=Wines.create(params[:name], params[:wine_variety], params[:produced_year], params[:produced_place], params[:created_at])
-  erb :index
+  new_wine = WinesControllers.new
+  new_wine.add_new_wine
+  body = JSON.parse(request.body.read)
+  puts body.to_json, 202
 end
 
 put '/wine/:id' do
-  @wine = wine.find(params[:id])
-  @wine.update(params[:name], params[:wine_variety], params[:produced_year], params[:produced_place], params[:created_at])
-  @wine.save
-  redirect '/wine/'+params[:id]
-  # body = JSON.parse(request.body.read)
-  # puts body.to_json
+  update_wine = WinesControllers.new
+  update_wine.update_wine
+  body = JSON.parse(request.body.read)
+  puts body.to_json, 200
 end
 
 get '/wine/:id' do
-  @wine = Wines.find(params[:id])
-  erb :show
+  wine = WinesControllers.new
+  wine.get_wine
+  body = JSON.parse(request.body.read)
+  puts body.to_json, 200
 end
 
 delete '/wine/:id' do
-  @wine = Wine.find(params[:id])
-  @wine.destroy
-  redirect '/wines'
+  deleted_wine = WinesControllers.new
+  deleted_wine.delete_wine
   [204, 'deleted']
 end
