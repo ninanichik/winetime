@@ -1,4 +1,8 @@
+require 'singleton'
+
 class WinesControllers
+  include Singleton
+
   def show_wines
     @wines = Wines.all
     erb :wines
