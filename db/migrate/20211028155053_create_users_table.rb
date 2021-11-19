@@ -4,6 +4,7 @@ class CreateUsersTable < ActiveRecord::Migration[6.1]
       t.string :fname
       t.string :lname
       t.string :email
+      t.int :phone
       t.references :wines
     end
   end
