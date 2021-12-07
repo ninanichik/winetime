@@ -10,23 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_073418) do
+ActiveRecord::Schema.define(version: 2021_11_02_082224) do
 
   create_table "users", force: :cascade do |t|
     t.string "fname"
     t.string "lname"
     t.string "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "phone"
+    t.integer "wines_id"
+    t.index ["wines_id"], name: "index_users_on_wines_id"
   end
 
   create_table "wines", force: :cascade do |t|
     t.string "name"
     t.string "wine_variety"
-    t.string "produced_year"
+    t.integer "produced_year"
     t.string "produced_place"
+    t.integer "user_id"
     t.datetime "created_at"
-    t.datetime "updated_at"
+    t.index ["user_id"], name: "index_wines_on_user_id"
   end
 
 end
