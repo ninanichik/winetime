@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_082224) do
     t.string "fname"
     t.string "lname"
     t.string "email"
-    t.string "phone"
+    t.integer "phone"
     t.integer "wines_id"
     t.index ["wines_id"], name: "index_users_on_wines_id"
   end

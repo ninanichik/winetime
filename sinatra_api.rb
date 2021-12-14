@@ -6,34 +6,32 @@ require './controllers/wines'
 set :database, "sqlite3:development.sqlite3"
 
 get '/users' do
-  UsersControllers.instance.show_users
-  200
+  status 200
+  body UsersControllers.instance.show_users
 end
 
 get '/wines' do
-  WinesControllers.instance.show_wines
-  200
+  status 200
+  body WinesControllers.instance.show_wines
 end
 
 post '/wine/new' do
-  body = JSON.parse(request.body.read)
-  puts body.to_json, 202
-  WinesControllers.instance.add_new_wine(params[:name, :wine_variety, :produced_year, :produced_place, :created_at])
+  status 202
+  body WinesControllers.instance.add_new_wine(params[:name, :wine_variety, :produced_year, :produced_place, :created_at])
 end
 
 put '/wine/:id' do
-  WinesControllers.instance.update_wine(params[:name, :wine_variety, :produced_year, :produced_place, :created_at])
-  body = JSON.parse(request.body.read)
-  puts body.to_json, 200
+  status 202
+  body WinesControllers.instance.update_wine(params[:name, :wine_variety, :produced_year, :produced_place, :created_at])
 end
 
 get '/wine/:id' do
-  WinesControllers.instance.get_wine
-  body = JSON.parse(request.body.read)
-  puts body.to_json, 200
+  status 200
+  body WinesControllers.instance.get_wine
 end
 
 delete '/wine/:id' do
+  status 204
   WinesControllers.instance.delete_wine
-  [204, 'deleted']
+  body ['deleted']
 end

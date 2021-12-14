@@ -10,3 +10,6 @@ bundle exec rake db:migrate
 
 db/migrate/... sets up mapping (ORM - Object Relational Mapper), relation between OOP and DB, 
 creates tables in db
+
+body = JSON.parse(request.body.read)
+puts body.to_json, 202

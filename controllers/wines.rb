@@ -1,11 +1,13 @@
 require 'singleton'
+require './models/wines'
 
 class WinesControllers
   include Singleton
 
   def show_wines
-    @wines = Wines.all
-    erb :wines
+    @wines = Wines.all.map do |wine|
+      "Wine id: #{wine.id}, name: #{wine.name}, wine_variety: #{wine.wine_variety}, produced_year: #{wine.produced_year} and produced_place: #{wine.produced_place}"
+    end
   end
 
   def add_new_wine(name, wine_variety, produced_year, produced_place, created_at)
