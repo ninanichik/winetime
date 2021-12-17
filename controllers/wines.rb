@@ -5,18 +5,11 @@ class WinesControllers
   include Singleton
 
   def show_wines
-    @wines = Wines.all.map do |wine|
-      "Wine id: #{wine.id}, name: #{wine.name}, wine_variety: #{wine.wine_variety}, produced_year: #{wine.produced_year} and produced_place: #{wine.produced_place}"
-    end
+    Wines.all.map{ |x| x.as_json }
   end
 
-  def add_new_wine(name, wine_variety, produced_year, produced_place, created_at)
-    @new_wine = Wines.create(params[name],
-                             params[wine_variety],
-                             params[produced_year],
-                             params[produced_place],
-                             params[created_at])
-    erb :sent
+  def add_new_wine(name, wine_variety, produced_year, produced_place)
+    Wines.create(name: name, wine_variety: wine_variety, produced_year: produced_year, produced_place: produced_place)
   end
 
   def update_wine(name, wine_variety, produced_year, produced_place, created_at)
@@ -31,13 +24,12 @@ class WinesControllers
     erb :sent
   end
 
-  def get_wine
-    @wine = Wines.find(params[:id])
-    erb :show_wine
+  def get_wine(id)
+    Wines.find(id)
   end
 
-  def delete_wine
-    @wine = Wine.find(params[:id])
+  def delete_wine(id)
+    @wine = Wine.find(id)
     @wine.destroy
     redirect '/wines'
   end
