@@ -1,11 +1,12 @@
 require 'faraday'
 require 'json'
+require 'pry'
+require 'faraday/net_http'
 
+Faraday.default_adapter = :net_http
 
 connection = Faraday.new('http://localhost:4567/') do |f|
-  f.request :json
-  f.response :json
-  # f.adapter :net_http # adds the adapter to the connection, defaults to `Faraday.default_adapter`
+  f.basic_auth('admin', 'admin')
 end
 
 response = connection.get('/wines')
@@ -15,10 +16,15 @@ puts response.status
 response = connection.get('/users')
 puts response.body
 
-response = connection.post '/wine/new', { :name => 'Brunello di Montalcino',
-                                          :wine_variety => 'White',
-                                          :produced_year => '2000',
-                                          :produced_place => 'Italy' }
+response = connection.post('/wine/new') do |req|
+  req.params['name'] = 'Brunello di Montalcino'
+  req.params['wine_variety'] = 'White'
+  req.params['produced_year'] = '2000'
+  req.params['produced_place'] = 'Italy'
+  # make default for all requests
+  req.headers['Content-Type'] = 'application/json'
+end
+
 puts response.body
 puts response.status
 
