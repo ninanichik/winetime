@@ -6,6 +6,10 @@ require './controllers/wines'
 set :database, "sqlite3:development.sqlite3"
 set :default_content_type, :json
 
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+  username == 'admin' and password == 'admin'
+end
+
 get '/users' do
   status 200
   UsersControllers.instance.show_users.to_json
