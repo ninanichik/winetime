@@ -23,7 +23,8 @@ end
 
 put '/wine/:id' do
   status 202
-  WinesControllers.instance.update_wine(params[:name], params[:wine_variety], params[:produced_year], params[:produced_place]).to_json
+  WinesControllers.instance.update_wine(params[:id], params[:name], params[:wine_variety], params[:produced_year], params[:produced_place]).to_json
+  WinesControllers.instance.get_wine(params[:id]).to_json
 end
 
 get '/wine/:id' do
@@ -35,4 +36,5 @@ delete '/wine/:id' do
   status 204
   WinesControllers.instance.delete_wine(params[:id]).to_json
   body ['deleted']
+  redirect '/wines'
 end

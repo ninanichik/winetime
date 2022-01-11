@@ -5,3 +5,5 @@ gem 'json'
 gem "sinatra-activerecord"
 gem "sqlite3"
 gem "rake"
+gem "faraday"
+gem "cucumber"

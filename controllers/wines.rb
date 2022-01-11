@@ -12,16 +12,12 @@ class WinesControllers
     Wines.create(name: name, wine_variety: wine_variety, produced_year: produced_year, produced_place: produced_place)
   end
 
-  def update_wine(name, wine_variety, produced_year, produced_place, created_at)
-    @wine = wine.find(params[:id])
-    @wine.update(params[name],
-                 params[wine_variety],
-                 params[produced_year],
-                 params[produced_place],
-                 params[created_at])
-    @wine.save
-    redirect '/wine/'+params[:id]
-    erb :sent
+  def update_wine(id, name, wine_variety, produced_year, produced_place)
+    @wine = Wines
+    @u = @wine.find(id)
+    @u.update(name: name, wine_variety: wine_variety, produced_year: produced_year, produced_place: produced_place)
+    @u.save
+
   end
 
   def get_wine(id)
@@ -29,8 +25,7 @@ class WinesControllers
   end
 
   def delete_wine(id)
-    @wine = Wine.find(id)
+    @wine = Wines.find(id)
     @wine.destroy
-    redirect '/wines'
   end
 end
