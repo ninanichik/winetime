@@ -7,3 +7,4 @@ gem "sqlite3"
 gem "rake"
 gem "faraday"
 gem "cucumber"
+gem 'faraday_middleware'
