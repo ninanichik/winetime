@@ -8,3 +8,6 @@ gem "rake"
 gem "faraday"
 gem "cucumber"
 gem 'faraday_middleware'
+gem 'cucumber'
+gem 'require_all'
+gem 'pry'
