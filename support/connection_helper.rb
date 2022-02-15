@@ -2,8 +2,7 @@ require 'faraday'
 require 'json'
 require 'faraday/net_http'
 require 'faraday_middleware'
-#require '.specs/random_params.rb'
-require_relative specs/random_params.rb
+require_relative '../specs/random_params.rb'
 require 'pry'
 
 class ConnectionHelper
@@ -53,3 +52,5 @@ class ConnectionHelper
     @connection.delete("/wine/#{id}")
   end
 end
+
+@connection_helper = ConnectionHelper.new
